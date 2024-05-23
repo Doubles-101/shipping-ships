@@ -18,6 +18,22 @@ def update_dock(id, dock_data):
 
     return True if db_cursor.rowcount > 0 else False
 
+def add_dock(location, capacity):
+    with sqlite3.connect("./shipping.db") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute(
+            """
+            INSERT INTO Dock (location, capacity)
+            VALUES (?,?)
+            """,
+            (location, capacity)
+        )
+
+        conn.commit()
+
+    return True
+
 def delete_dock(pk):
     with sqlite3.connect("./shipping.db") as conn:
         conn.row_factory = sqlite3.Row

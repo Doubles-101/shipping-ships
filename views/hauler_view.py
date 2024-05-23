@@ -20,6 +20,21 @@ def update_hauler(id, hauler_data):
 
     return True if rows_affected > 0 else False
 
+def add_hauler(name, dock_id):
+    with sqlite3.connect("./shipping.db") as conn:
+        db_cursor = conn.cursor()
+
+        db_cursor.execute(
+            """
+            INSERT INTO Hauler (name, dock_id)
+            Values(?,?)
+            """,
+            (name, dock_id)
+        )
+
+        conn.commit()
+        
+    return True
 
 def delete_hauler(pk):
     with sqlite3.connect("./shipping.db") as conn:
